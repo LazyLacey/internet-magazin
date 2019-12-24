@@ -10,7 +10,7 @@
           @minusGood="removeFromCart"
           @deleteGood="deleteFromCart"
         />
-        <FilterGoods :filterfunction="filterFunction" />
+        <FilterGoods :filterfunction="filterFunction" :filterparam="filterParam" />
       </div>
 
       <!-- <div
@@ -88,7 +88,7 @@ export default {
       ],
       visibleGoods: [],
       moreGoods: moreGoods,
-      filterParam: 0
+      filterParam: 100
     }
   },
   computed: {

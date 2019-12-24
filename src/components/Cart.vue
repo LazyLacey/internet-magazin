@@ -124,7 +124,6 @@ path {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 125px;
   height: 42px;
   border-radius: 10px;
