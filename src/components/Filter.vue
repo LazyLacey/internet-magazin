@@ -26,7 +26,7 @@ export default {
 .filter-goods {
   width: 125px;
   background-color: white;
-  margin-top: 20px;
+  margin-top: 10px;
   padding-top: 10px;
   border-radius: 10px;
   background-color: @dark;

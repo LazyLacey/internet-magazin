@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { EventBus } from './EventBus'
 export default {
   components: {},
   props: ['img', 'title', 'description', 'price', 'incart'],
@@ -41,9 +42,10 @@ export default {
   },
   methods: {
     clickedToCart () {
-      this.$emit('cart', this.title)
+      EventBus.$emit('cart', this.title)
     },
     beautyPrice (nPrice) {
+      nPrice = String(nPrice)
       let bPrice = ''
       if (nPrice.length > 3) {
         for (let i = 0, c = 1; i < nPrice.length; i++, c++) {
@@ -62,14 +64,14 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "../variables.less";
+@import '../variables.less';
 
 .card {
   display: block;
   padding: 0 32px;
   margin: 5px 10px;
   background-color: white;
-  position:relative;
+  position: relative;
 }
 img {
   width: 203px;
@@ -99,9 +101,9 @@ img {
 }
 path {
   stroke-linecap: round;
-  stroke-width:9;
-  fill:none;
-  stroke:white;
+  stroke-width: 9;
+  fill: none;
+  stroke: white;
   transition: stroke-dasharray 300ms cubic-bezier(0.41, 0.03, 0.53, 1), stroke-dashoffset 300ms cubic-bezier(0.41, 0.03, 0.53, 1);
   stroke-dashoffset: 0;
 }
@@ -125,11 +127,11 @@ svg {
   stroke: #0058a3;
 }
 .to-cart {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
   background-color: #0058a3;
   border: 1px solid #0058a3;
   position: absolute;
@@ -138,7 +140,7 @@ svg {
   border-radius: 2px;
 
   &.added {
-    background-color:white;
+    background-color: white;
   }
 }
 </style>

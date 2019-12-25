@@ -23,7 +23,8 @@ module.exports = {
     "vue/html-self-closing": "off",
     "vue/require-default-prop": "off",
     "eqeqeq":"off",
-    "vue/attribute-hyphenation": "off"
+    "vue/attribute-hyphenation": "off",
+    "no-unused-vars": "off"
 
   },
   parserOptions: {

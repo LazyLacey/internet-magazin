@@ -6,21 +6,10 @@
           :cart="cartGoods"
           :number="cartNumber"
           :sum="cartSum"
-          @plusGood="addToCart"
-          @minusGood="removeFromCart"
-          @deleteGood="deleteFromCart"
         />
         <FilterGoods :filterfunction="filterFunction" :filterparam="filterParam" />
       </div>
-
-      <!-- <div
-        :style="styleObj"
-        :name="getMyName()"
-        @click="randomize()"
-      >
-        click here
-      </div> -->
-      <Cards :goods="visibleGoods" @cart="chooseToCart" @moreElements="moreElements(2)" />
+      <Cards :goods="visibleGoods" />
     </div>
     <zap-slideout />
   </div>
@@ -33,6 +22,7 @@ import ZapSlideout from './ZapSlideout.vue'
 import Cart from './Cart'
 import moreGoods from './goods'
 import FilterGoods from './Filter'
+import { EventBus } from './EventBus'
 
 export default {
   name: 'Main',
@@ -88,18 +78,10 @@ export default {
       ],
       visibleGoods: [],
       moreGoods: moreGoods,
-      filterParam: 100
+      filterParam: 50
     }
   },
   computed: {
-    // styleObj () {
-    //   // console.log('styleObj called')
-    //   return { backgroundColor: this.randColor }
-    // },
-    // myName () {
-    //   // console.log('myName called')
-    //   return this.firstName + ' ' + this.lastName
-    // },
     cartGoods () {
       return this.goods.filter(good => good.inCart > 0)
     },
@@ -121,42 +103,13 @@ export default {
   },
   created () {
     this.filterFunction(this.filterParam)
+    EventBus.$on('cart', this.chooseToCart)
+    EventBus.$on('moreElements', () => this.moreElements(2))
+    EventBus.$on('plusGood', this.addToCart)
+    EventBus.$on('minusGood', this.removeFromCart)
+    EventBus.$on('deleteGood', this.deleteFromCart)
   },
   methods: {
-    // getStyleObject: function () {
-    //   // console.log('getStyleObject called')
-    //   return { backgroundColor: this.randColor }
-    // },
-    // getMyName () {
-    //   // console.log('getMyName called')
-    //   return this.firstName + ' ' + this.lastName
-    // },
-    // randomize: function () {
-    //   var hexValues = [
-    //     '0',
-    //     '1',
-    //     '2',
-    //     '3',
-    //     '4',
-    //     '5',
-    //     '6',
-    //     '7',
-    //     '8',
-    //     '9',
-    //     'a',
-    //     'b',
-    //     'c',
-    //     'd',
-    //     'e'
-    //   ]
-    //   var newColor = '#'
-    //   for (var i = 0; i < 6; i++) {
-    //     var x = Math.round(Math.random() * 14)
-    //     var y = hexValues[x]
-    //     newColor += y
-    //   }
-    //   this.randColor = newColor
-    // },
     moreElements: function (count) {
       for (let i = 0; i < count; i++) {
         if (moreGoods.length > 0) {
@@ -197,7 +150,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-@import "../variables.less";
+@import '../variables.less';
 .info {
   position: relative;
   text-align: center;
