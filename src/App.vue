@@ -1,18 +1,19 @@
 <template>
   <div id="app">
     <!-- <Header /> -->
-    <Main title="Welcome to Your Vue.js App" />
+    <!-- <Main title="Welcome to Your Vue.js App" /> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Main from './components/Main.vue'
+// import Main from './components/Main.vue'
 // import Header from "./components/Header.vue"
 
 export default {
   name: 'App',
   components: {
-    Main
+    // Main
     // Header
   }
 }
@@ -27,7 +28,7 @@ export default {
   text-align: center;
   justify-content: center;
   color: #2c3e50;
-  background-color: @almostwhite;
+  // background-color: @almostwhite;
   min-height: 100vh;
   position: relative;
 }

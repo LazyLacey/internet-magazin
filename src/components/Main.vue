@@ -162,9 +162,9 @@ export default {
   top: 5px;
   right: 5px;
 }
-.main {
-  background-color: @almostwhite;
-}
+// .main {
+//   background-color: @almostwhite;
+// }
 h3 {
   margin: 40px 0 0;
 }
