@@ -35,10 +35,6 @@ export default {
     }
   },
   methods: {
-    // moreElements: function () {
-    //   EventBus.$emit('moreElements')
-    //   console.log('emitted')
-    // }
   }
 }
 </script>

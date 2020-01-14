@@ -43,9 +43,6 @@ export default {
     }
   },
   methods: {
-    // clickedToCart () {
-    //   EventBus.$emit('cart', this.title)
-    // },
     beautyPrice (nPrice) {
       nPrice = String(nPrice)
       let bPrice = ''

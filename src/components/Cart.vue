@@ -71,16 +71,6 @@ export default {
     closeModal: function () {
       this.modal = false
     }
-    // minusGood: function (good) {
-    //   EventBus.$emit('minusGood', good.title)
-    //   console.log('emitted')
-    // },
-    // plusGood: function (good) {
-    //   EventBus.$emit('plusGood', good.title)
-    // },
-    // deleteGood: function (good) {
-    //   EventBus.$emit('deleteGood', good.title)
-    // }
   }
 }
 </script>

@@ -1,8 +1,6 @@
 <template>
   <div class="zap-slideout" :class="{ 'is-open': isOpen }">
     <MenuButton class="zap-slideout-opener" @click="toggle" />
-    <!-- <div class="zap-slideout-opener"
-         @click="toggle">{{openerText}}</div> -->
     <ul class="zap-slideout-menu">
       <li v-for="item in menu" :key="item" class="zap-slideout-menu-item">
         {{ item }}
