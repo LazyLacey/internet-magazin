@@ -11,7 +11,7 @@
         :incart="good.inCart"
       />
     </ul>
-    <div v-if="ismoregoods" class="button" @click="moreElements">
+    <div v-if="ismoregoods" class="button" @click="EventBus.moreElements(2)">
       Показать еще
     </div>
   </div>
@@ -31,13 +31,14 @@ export default {
   },
   data () {
     return {
+      EventBus: EventBus
     }
   },
   methods: {
-    moreElements: function () {
-      EventBus.$emit('moreElements')
-      console.log('emitted')
-    }
+    // moreElements: function () {
+    //   EventBus.$emit('moreElements')
+    //   console.log('emitted')
+    // }
   }
 }
 </script>

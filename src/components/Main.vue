@@ -77,11 +77,11 @@ export default {
       EventBus.moreElements(4)
     }
     EventBus.filterFunction(EventBus.filterParam)
-    EventBus.$on('cart', EventBus.chooseToCart)
-    EventBus.$on('moreElements', () => EventBus.moreElements(2))
-    EventBus.$on('plusGood', EventBus.addToCart)
-    EventBus.$on('minusGood', EventBus.removeFromCart)
-    EventBus.$on('deleteGood', EventBus.deleteFromCart)
+    // EventBus.$on('cart', EventBus.chooseToCart)
+    // EventBus.$on('moreElements', () => EventBus.moreElements(2))
+    // EventBus.$on('plusGood', EventBus.addToCart)
+    // EventBus.$on('minusGood', EventBus.removeFromCart)
+    // EventBus.$on('deleteGood', EventBus.deleteFromCart)
   },
   beforeDestroy () {
     EventBus.$off()

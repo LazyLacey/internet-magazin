@@ -75,17 +75,17 @@ export const EventBus = new Vue({
     filterFunction (arg) {
       this.filterParam = arg
       this.visibleGoods = this.goods.filter(good => good.price > arg)
-    },
-    // from cart
-    minusGood: function (good) {
-      EventBus.$emit('minusGood', good.title)
-      console.log('emitted')
-    },
-    plusGood: function (good) {
-      EventBus.$emit('plusGood', good.title)
-    },
-    deleteGood: function (good) {
-      EventBus.$emit('deleteGood', good.title)
     }
+    // from cart
+    // minusGood: function (good) {
+    //   EventBus.$emit('minusGood', good.title)
+    //   console.log('emitted')
+    // },
+    // plusGood: function (good) {
+    //   EventBus.$emit('plusGood', good.title)
+    // },
+    // deleteGood: function (good) {
+    //   EventBus.$emit('deleteGood', good.title)
+    // }
   }
 })

@@ -10,7 +10,7 @@
     <div class="price">
       {{ beautyPrice(price) + " ₽" }}
     </div>
-    <div class="to-cart" :class="{ added: incart }" @click="clickedToCart">
+    <div class="to-cart" :class="{ added: incart }" @click="EventBus.chooseToCart(title)">
       <svg
         width="100"
         height="100"
@@ -38,12 +38,14 @@ export default {
   components: {},
   props: ['img', 'title', 'description', 'price', 'incart'],
   data () {
-    return {}
+    return {
+      EventBus: EventBus
+    }
   },
   methods: {
-    clickedToCart () {
-      EventBus.$emit('cart', this.title)
-    },
+    // clickedToCart () {
+    //   EventBus.$emit('cart', this.title)
+    // },
     beautyPrice (nPrice) {
       nPrice = String(nPrice)
       let bPrice = ''
