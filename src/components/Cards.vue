@@ -11,8 +11,8 @@
         :incart="good.inCart"
       />
     </ul>
-    <div class="button" @click="moreElements">
-      Показать еще 2
+    <div v-if="ismoregoods" class="button" @click="moreElements">
+      Показать еще
     </div>
   </div>
 </template>
@@ -26,7 +26,8 @@ export default {
     Card
   },
   props: {
-    goods: Array
+    goods: Array,
+    ismoregoods: Boolean
   },
   data () {
     return {

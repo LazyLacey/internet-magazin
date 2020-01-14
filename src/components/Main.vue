@@ -3,13 +3,13 @@
     <div class="info">
       <div class="fixed-block">
         <Cart
-          :cart="cartGoods"
-          :number="cartNumber"
-          :sum="cartSum"
+          :cart="EventBus.cartGoods"
+          :number="EventBus.cartNumber"
+          :sum="EventBus.cartSum"
         />
-        <FilterGoods :filterfunction="filterFunction" :filterparam="filterParam" />
+        <FilterGoods :filterfunction="EventBus.filterFunction" :filterparam="EventBus.filterParam" />
       </div>
-      <Cards :goods="visibleGoods" />
+      <Cards :goods="EventBus.visibleGoods" :ismoregoods="EventBus.isMoreGoods" />
     </div>
     <zap-slideout />
   </div>
@@ -20,7 +20,7 @@ import Cards from './Cards'
 // import SomeShit from './SomeShit'
 import ZapSlideout from './ZapSlideout.vue'
 import Cart from './Cart'
-import moreGoods from './goods'
+// import moreGoods from './goods'
 import FilterGoods from './Filter'
 import { EventBus } from './EventBus'
 
@@ -38,112 +38,89 @@ export default {
   },
   data () {
     return {
-      text: 'Hello, world!',
-      firstName: 'I',
-      lastName: 'Am',
-      randColor: '',
-      goods: [
-        {
-          title: 'Блохэй',
-          price: 1499,
-          description: 'Мягкая игрушка, акула, 100 см',
-          img: './images/blohay.webp',
-          inCart: false,
-          count: 0
-        },
-        {
-          title: 'Дуктиг',
-          price: 6299,
-          description: 'Детская кухня, 72x40x109 см',
-          img: './images/ductig.webp',
-          inCart: false,
-          count: 0
-        },
-        {
-          title: 'Мола',
-          price: 149,
-          description: 'Фломастер',
-          img: './images/mola.webp',
-          inCart: false,
-          count: 0
-        },
-        {
-          title: 'Сагоскатт',
-          price: 349,
-          description: 'Мягкая игрушка',
-          img: './images/sagoskatt.webp',
-          inCart: false,
-          count: 0
-        }
-      ],
-      visibleGoods: [],
-      moreGoods: moreGoods,
-      filterParam: 50
+      EventBus: EventBus
+      // text: 'Hello, world!',
+      // firstName: 'I',
+      // lastName: 'Am',
+      // randColor: '',
+      // goods: [],
+      // visibleGoods: [],
+      // moreGoods: moreGoods,
+      // filterParam: 50
     }
   },
   computed: {
-    cartGoods () {
-      return this.goods.filter(good => good.inCart > 0)
-    },
-    cartNumber () {
-      return this.cartGoods.reduce(function (accumulator, currentValue) {
-        return accumulator + currentValue.inCart
-      }, 0)
-    },
-    cartSum () {
-      return this.cartGoods.reduce(function (accumulator, currentValue) {
-        return accumulator + currentValue.count * Number(currentValue.price)
-      }, 0)
-    }
+    // cartGoods () {
+    //   return this.goods.filter(good => good.inCart > 0)
+    // },
+    // cartNumber () {
+    //   return this.cartGoods.reduce(function (accumulator, currentValue) {
+    //     return accumulator + currentValue.inCart
+    //   }, 0)
+    // },
+    // cartSum () {
+    //   return this.cartGoods.reduce(function (accumulator, currentValue) {
+    //     return accumulator + currentValue.count * Number(currentValue.price)
+    //   }, 0)
+    // },
+    // isMoreGoods () {
+    //   return this.moreGoods.length != this.goods.length
+    // }
   },
   watch: {
-    goods: function (newGoods) {
-      this.filterFunction(this.filterParam)
-    }
+    // goods: function (newGoods) {
+    //   this.filterFunction(this.filterParam)
+    // }
   },
   created () {
-    this.filterFunction(this.filterParam)
-    EventBus.$on('cart', this.chooseToCart)
-    EventBus.$on('moreElements', () => this.moreElements(2))
-    EventBus.$on('plusGood', this.addToCart)
-    EventBus.$on('minusGood', this.removeFromCart)
-    EventBus.$on('deleteGood', this.deleteFromCart)
+    if (EventBus.goods.length == 0) {
+      EventBus.moreElements(4)
+    }
+    EventBus.filterFunction(EventBus.filterParam)
+    EventBus.$on('cart', EventBus.chooseToCart)
+    EventBus.$on('moreElements', () => EventBus.moreElements(2))
+    EventBus.$on('plusGood', EventBus.addToCart)
+    EventBus.$on('minusGood', EventBus.removeFromCart)
+    EventBus.$on('deleteGood', EventBus.deleteFromCart)
+  },
+  beforeDestroy () {
+    EventBus.$off()
   },
   methods: {
-    moreElements: function (count) {
-      for (let i = 0; i < count; i++) {
-        if (moreGoods.length > 0) {
-          console.log('больше, больше гламура')
-          this.goods.push(moreGoods.pop())
-        }
-      }
-    },
-    chooseToCart (arg) {
-      this.goods.forEach(good => {
-        if (good.title === arg) {
-          good.inCart = true
-          if (good.count < 1) { good.count += 1 }
-        }
-      })
-    },
-    deleteFromCart (arg) {
-      this.goods.forEach(good => {
-        if (good.title === arg) {
-          good.inCart = false
-          good.count = 0
-        }
-      })
-    },
-    addToCart (arg) {
-      this.goods.forEach(good => { if (good.title === arg) { good.count += 1 } })
-    },
-    removeFromCart (arg) {
-      this.goods.forEach(good => { if (good.title === arg && good.count > 0) { good.count -= 1 } })
-    },
-    filterFunction (arg) {
-      this.filterParam = arg
-      this.visibleGoods = this.goods.filter(good => good.price > arg)
-    }
+    // moreElements: function (count) {
+    //   for (let i = 0; i < count; i++) {
+    //     if (moreGoods.length > this.goods.length) {
+    //       console.log('больше, больше гламура')
+    //       this.goods.push(moreGoods[this.goods.length])
+    //     }
+    //   }
+    // },
+    // chooseToCart (arg) {
+    //   this.goods.forEach(good => {
+    //     if (good.title === arg) {
+    //       good.inCart = true
+    //       if (good.count < 1) { good.count += 1 }
+    //     }
+    //   })
+    // },
+    // deleteFromCart (arg) {
+    //   this.goods.forEach(good => {
+    //     if (good.title === arg) {
+    //       good.inCart = false
+    //       good.count = 0
+    //     }
+    //   })
+    // },
+    // addToCart (arg) {
+    //   this.goods.forEach(good => { if (good.title === arg) { good.count += 1 } })
+    // },
+    // removeFromCart (arg) {
+    //   this.goods.forEach(good => { if (good.title === arg && good.count > 0) { good.count -= 1 } })
+    // },
+    // filterFunction (arg) {
+    //   this.filterParam = arg
+    //   this.visibleGoods = this.goods.filter(good => good.price > arg)
+    // }
   }
 }
 </script>

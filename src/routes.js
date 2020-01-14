@@ -1,5 +1,5 @@
 const firstPage = () => import('./components/Main.vue')
-const cart = () => import('./components/Lol.vue')
+const cart = () => import('./components/CartPage.vue')
 
 export default [
   {
@@ -7,7 +7,7 @@ export default [
     component: firstPage
   },
   {
-    path: '/kek',
+    path: '/cart',
     component: cart
   }
 ]
