@@ -75,6 +75,15 @@ export const EventBus = new Vue({
     filterFunction (arg) {
       this.filterParam = arg
       this.visibleGoods = this.goods.filter(good => good.price > arg)
+    },
+    getGood (arg) {
+      console.log(arg)
+      this.moreGoods.forEach(good => {
+        if (good.title === arg) {
+          console.log(good)
+          return good
+        }
+      })
     }
   }
 })

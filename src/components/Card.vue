@@ -2,7 +2,9 @@
   <div class="card">
     <img :src="img" />
     <div class="title">
-      {{ title }}
+      <router-link :to="'/good/'+title">
+        {{ title }}
+      </router-link>
     </div>
     <div class="description">
       {{ description }}
@@ -86,6 +88,11 @@ img {
     text-decoration: underline;
   }
 }
+a{
+  color: #2c3e50;
+  text-decoration: none;
+}
+
 .description {
   font-size: 14px;
   text-align: start;
