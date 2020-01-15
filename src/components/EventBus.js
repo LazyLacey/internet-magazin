@@ -78,6 +78,8 @@ export const EventBus = new Vue({
     },
     getGood (arg) {
       console.log(arg)
+Let a = This. More goods. Find(x => x. Title === argument) 
+Return a;
       this.moreGoods.forEach(good => {
         if (good.title === arg) {
           console.log(good)
