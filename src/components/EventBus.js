@@ -5,10 +5,6 @@ export const EventBus = new Vue({
   data () {
     return {
       // from main
-      text: 'Hello, world!',
-      firstName: 'I',
-      lastName: 'Am',
-      randColor: '',
       goods: [],
       visibleGoods: [],
       moreGoods: moreGoods,
@@ -78,14 +74,8 @@ export const EventBus = new Vue({
     },
     getGood (arg) {
       console.log(arg)
-Let a = This. More goods. Find(x => x. Title === argument) 
-Return a;
-      this.moreGoods.forEach(good => {
-        if (good.title === arg) {
-          console.log(good)
-          return good
-        }
-      })
+      console.log(process.env.BASE_URL)
+      return this.moreGoods.find(good => good.title === arg)
     }
   }
 })

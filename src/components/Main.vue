@@ -9,7 +9,7 @@
         />
         <FilterGoods :filterfunction="EventBus.filterFunction" :filterparam="EventBus.filterParam" />
       </div>
-      <Cards :goods="EventBus.visibleGoods" :ismoregoods="EventBus.isMoreGoods" />
+      <Cards :goods="EventBus.visibleGoods" :ismoregoods="EventBus.isMoreGoods" whereused="main" />
     </div>
     <zap-slideout />
   </div>

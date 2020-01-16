@@ -3,7 +3,7 @@ var moreGoods = [
     title: 'Блохэй',
     price: 1499,
     description: 'Мягкая игрушка, акула, 100 см',
-    img: './images/blohay.webp',
+    img: '/images/blohay.jpg',
     inCart: false,
     count: 0
   },
@@ -11,7 +11,7 @@ var moreGoods = [
     title: 'Дуктиг',
     price: 6299,
     description: 'Детская кухня, 72x40x109 см',
-    img: './images/ductig.webp',
+    img: '/images/ductig.webp',
     inCart: false,
     count: 0
   },
@@ -19,7 +19,7 @@ var moreGoods = [
     title: 'Мола',
     price: 149,
     description: 'Фломастер',
-    img: './images/mola.webp',
+    img: '/images/mola.webp',
     inCart: false,
     count: 0
   },
@@ -27,7 +27,7 @@ var moreGoods = [
     title: 'Сагоскатт',
     price: 349,
     description: 'Мягкая игрушка',
-    img: './images/sagoskatt.webp',
+    img: '/images/sagoskatt.jpg',
     inCart: false,
     count: 0
   },
@@ -35,7 +35,7 @@ var moreGoods = [
     title: 'Лиллабу',
     price: 1999,
     description: 'Железная дорога, 45 предм.',
-    img: './images/lillabu.webp',
+    img: '/images/lillabu.webp',
     inCart: false,
     count: 0
   },
@@ -43,7 +43,7 @@ var moreGoods = [
     title: 'Госиг мус',
     price: 99,
     description: 'Мягкая игрушка, 14 см',
-    img: './images/gosigmus.webp',
+    img: '/images/gosigmus.webp',
     inCart: false,
     count: 0
   },
@@ -51,7 +51,7 @@ var moreGoods = [
     title: 'Лустигт',
     price: 279,
     description: 'Рулон бумаги для раскрашивания, 10 м',
-    img: './images/lustigt.webp',
+    img: '/images/lustigt.jpg',
     inCart: false,
     count: 0
   },
@@ -59,7 +59,7 @@ var moreGoods = [
     title: 'Крамиг',
     price: 299,
     description: 'Мягкая игрушка',
-    img: './images/kramig.webp',
+    img: '/images/kramig.jpg',
     inCart: false,
     count: 0
   }

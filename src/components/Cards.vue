@@ -9,6 +9,7 @@
         :price="good.price"
         :description="good.description"
         :incart="good.inCart"
+        :whereused="whereused"
       />
     </ul>
     <div v-if="ismoregoods" class="button" @click="EventBus.moreElements(2)">
@@ -27,7 +28,8 @@ export default {
   },
   props: {
     goods: Array,
-    ismoregoods: Boolean
+    ismoregoods: Boolean,
+    whereused: String
   },
   data () {
     return {
