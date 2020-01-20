@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <img :src="img" :class="whereused" />
+  <div class="card" :class="classForElement">
+    <img :src="img" />
     <div class="info">
       <div class="title">
         <router-link :to="'/good/'+title">
@@ -13,7 +13,7 @@
       <div class="price">
         {{ beautyPrice(price) + " ₽" }}
       </div>
-      <div class="to-cart" :class="{ added: incart }" @click="EventBus.chooseToCart(title)">
+      <div v-if="isButtonInCart" class="to-cart" :class="{ added: incart }" @click="EventBus.chooseToCart(title)">
         <svg
           width="100"
           height="100"
@@ -43,7 +43,19 @@ export default {
   props: ['img', 'title', 'description', 'price', 'incart', 'whereused'],
   data () {
     return {
-      EventBus: EventBus
+      EventBus: EventBus,
+      buttonInCart: [
+        'main'
+      ]
+    }
+  },
+  computed: {
+    isButtonInCart () {
+      console.log(this.buttonInCart.indexOf(this.whereused) != -1)
+      return this.buttonInCart.indexOf(this.whereused) != -1
+    },
+    classForElement () {
+      return 'card--' + this.whereused
     }
   },
   methods: {
@@ -70,14 +82,39 @@ export default {
 @import '../variables.less';
 
 .card {
+  position: relative;
   display: block;
   padding: 0 32px;
   margin: 5px 10px;
   background-color: white;
+}
+.card--goodpage {
   position: relative;
+  display: flex;
+  justify-content: flex-end;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  padding: 0 10vw;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: white;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-content: center;
+    padding: 0;
+  }
+
 }
 img {
   width: 203px;
+  .card--goodpage & {
+    flex-grow: 1;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+  }
 }
 .title {
   text-transform: uppercase;
@@ -89,8 +126,25 @@ img {
   &:hover {
     text-decoration: underline;
   }
+
+  .card--goodpage & {
+    font-size: 20px;
+
+    &:hover {
+    text-decoration: none;
+    }
+  }
 }
-a{
+.info {
+  .card--goodpage & {
+    padding: 5vw;
+    padding-right: 0;
+    @media screen and (max-width: 768px) {
+    padding: 5vw 1vw;
+    }
+  }
+}
+a {
   color: #2c3e50;
   text-decoration: none;
 }
@@ -98,6 +152,9 @@ a{
 .description {
   font-size: 14px;
   text-align: start;
+  .card--goodpage & {
+    font-size: 16px;
+  }
 }
 .price {
   font-weight: 700;
@@ -106,6 +163,9 @@ a{
   letter-spacing: -1px;
   white-space: nowrap;
   text-align: start;
+  .card--goodpage & {
+    font-size: 32px;
+  }
 }
 path {
   stroke-linecap: round;
