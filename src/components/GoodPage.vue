@@ -1,35 +1,44 @@
 <template>
   <div class="good-page">
     <Card
-      :title="good.title"
-      :img="good.img"
-      :price="good.price"
-      :description="good.description"
-      :incart="good.inCart"
+      :title="goodPage.title"
+      :img="goodPage.img"
+      :price="goodPage.price"
+      :description="goodPage.description"
+      :incart="goodPage.inCart"
       whereused="goodpage"
     />
   </div>
 </template>
 
 <script>
-import { EventBus } from './EventBus'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
+
 import Card from './Card'
+import store from '../store'
+
 export default {
   components: {
     Card
   },
   data () {
     return {
-      EventBus: EventBus
     }
   },
   computed: {
-    good () {
-      console.log('route.title: ' + this.$route.params.title)
-      console.log(this.$route)
-
-      console.log(EventBus.getGood('Блохэй'))
-      return EventBus.getGood(this.$route.params.title)
+    ...mapState(['goodPage'])
+    // good () {
+    //   console.log('route.title: ' + this.$route.params.title)
+    //   console.log(this.$route)
+    //   return this.getGood(this.$route.params.title)
+    // }
+  },
+  created () {
+    this.getGood(this.$route.params.title)
+  },
+  methods: {
+    getGood (value) {
+      store.commit('getGood', value)
     }
   }
 

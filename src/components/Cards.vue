@@ -2,7 +2,7 @@
   <div class="cards">
     <ul>
       <Card
-        v-for="good in goods"
+        v-for="good in visibleGoods"
         :key="good.title"
         :title="good.title"
         :img="good.img"
@@ -12,7 +12,7 @@
         :whereused="whereused"
       />
     </ul>
-    <div v-if="ismoregoods" class="button" @click="EventBus.moreElements(2)">
+    <div v-if="isMoreGoods" class="button" @click="moreElements(2)">
       Показать еще
     </div>
   </div>
@@ -20,23 +20,29 @@
 
 <script>
 import Card from './Card'
-import { EventBus } from './EventBus'
+import { mapGetters } from 'vuex'
+import store from '../store'
 
 export default {
   components: {
     Card
   },
   props: {
-    goods: Array,
-    ismoregoods: Boolean,
+    // goods: Array,
+    // ismoregoods: Boolean,
     whereused: String
   },
   data () {
     return {
-      EventBus: EventBus
     }
   },
+  computed: {
+    ...mapGetters(['isMoreGoods', 'visibleGoods'])
+  },
   methods: {
+    moreElements (value) {
+      store.commit('moreElements', value)
+    }
   }
 }
 </script>

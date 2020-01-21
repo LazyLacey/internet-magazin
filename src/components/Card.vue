@@ -13,7 +13,7 @@
       <div class="price">
         {{ beautyPrice(price) + " ₽" }}
       </div>
-      <div v-if="isButtonInCart" class="to-cart" :class="{ added: incart }" @click="EventBus.chooseToCart(title)">
+      <div v-if="isButtonInCart" class="to-cart" :class="{ added: incart }" @click="chooseToCart(title)">
         <svg
           width="100"
           height="100"
@@ -37,13 +37,12 @@
 </template>
 
 <script>
-import { EventBus } from './EventBus'
+import store from '../store'
 export default {
   components: {},
   props: ['img', 'title', 'description', 'price', 'incart', 'whereused'],
   data () {
     return {
-      EventBus: EventBus,
       buttonInCart: [
         'main'
       ]
@@ -73,8 +72,12 @@ export default {
         bPrice = nPrice
       }
       return bPrice
+    },
+    chooseToCart (value) {
+      store.commit('chooseToCart', value)
     }
   }
+
 }
 </script>
 

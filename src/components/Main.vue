@@ -2,14 +2,10 @@
   <div class="main">
     <div class="info">
       <div class="fixed-block">
-        <Cart
-          :cart="EventBus.cartGoods"
-          :number="EventBus.cartNumber"
-          :sum="EventBus.cartSum"
-        />
-        <FilterGoods :filterfunction="EventBus.filterFunction" :filterparam="EventBus.filterParam" />
+        <Cart />
+        <FilterGoods />
       </div>
-      <Cards :goods="EventBus.visibleGoods" :ismoregoods="EventBus.isMoreGoods" whereused="main" />
+      <Cards whereused="main" />
     </div>
     <zap-slideout />
   </div>
@@ -21,7 +17,8 @@ import Cards from './Cards'
 import ZapSlideout from './ZapSlideout.vue'
 import Cart from './Cart'
 import FilterGoods from './Filter'
-import { EventBus } from './EventBus'
+import store from '../store'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Main',
@@ -33,24 +30,23 @@ export default {
     FilterGoods
   },
   props: {
-    title: String
   },
   data () {
     return {
-      EventBus: EventBus
     }
   },
   computed: {
-  },
-  watch: {
+    ...mapState(['goods'])
   },
   created () {
-    if (EventBus.goods.length == 0) {
-      EventBus.moreElements(4)
+    if (this.goods.length == 0) {
+      this.moreElements(4)
     }
-    EventBus.filterFunction(EventBus.filterParam)
   },
   methods: {
+    moreElements (value) {
+      store.commit('moreElements', value)
+    }
   }
 }
 </script>
