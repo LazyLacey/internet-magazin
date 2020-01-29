@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <!-- @click="chponk"> -->
     <div class="info">
       <div class="fixed-block">
         <Cart />
@@ -33,6 +34,10 @@ export default {
   },
   data () {
     return {
+      first: ['critical', 'eq', 'creative', 'digital', 'communication', 'system', 'cooperation'],
+      second: ['art', 'business', 'craft', 'digits', 'logic', 'music', 'nature', 'people', 'science', 'sport', 'technology'],
+      urls: [],
+      normurls: []
     }
   },
   computed: {
@@ -42,10 +47,36 @@ export default {
     if (this.goods.length == 0) {
       this.moreElements(4)
     }
+    // for (let i in this.first) {
+    //   for (let j in this.second) {
+    //     this.urls.push('http://api.skillfolio.ru/professions/getlist/' + this.first[i] + '/' + this.second[j] + '/')
+    //   }
+    // }
+
+    // console.log(this.urls)
+    // const normurls = []
+    // for (let i in this.urls) {
+    //   const Http = new XMLHttpRequest()
+    //   const url = this.urls[i]
+    //   Http.open('GET', url)
+    //   Http.send()
+
+    //   Http.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //       console.log(Http.responseText)
+    //       normurls.push(Http.responseURL)
+    //     }
+    //   }
+    // }
+    // console.log(normurls)
+    // this.normurls = normurls
   },
   methods: {
     moreElements (value) {
       store.commit('moreElements', value)
+    // },
+    // chponk () {
+    //   console.log(this.normurls)
     }
   }
 }

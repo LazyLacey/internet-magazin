@@ -69,6 +69,16 @@ const store = new Vuex.Store({
     removeFromCart (state, arg) {
       state.goods.forEach(good => { if (good.title === arg && good.count > 0) { good.count -= 1 } })
     },
+    chooseAddToCart (state, payload) {
+      if (payload.amount > 0) {
+        state.goods.forEach(good => {
+          if (good.title === payload.name) {
+            good.inCart = true
+            good.count += payload.amount
+          }
+        })
+      }
+    },
     // filterFunction (state, arg) {
     //   state.filterParam = arg
     //   state.visibleGoods = state.goods.filter(good => good.price > arg)

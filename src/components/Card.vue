@@ -2,18 +2,20 @@
   <div class="card" :class="classForElement">
     <img :src="img" />
     <div class="info">
-      <div class="title">
-        <router-link :to="'/good/'+title">
-          {{ title }}
-        </router-link>
+      <div class="info-header">
+        <div class="title">
+          <router-link :to="'/good/'+title">
+            {{ title }}
+          </router-link>
+        </div>
+        <div class="description">
+          {{ description }}
+        </div>
+        <div class="price">
+          {{ beautyPrice(price) + " ₽" }}
+        </div>
       </div>
-      <div class="description">
-        {{ description }}
-      </div>
-      <div class="price">
-        {{ beautyPrice(price) + " ₽" }}
-      </div>
-      <div v-if="isButtonInCart" class="to-cart" :class="{ added: incart }" @click="chooseToCart(title)">
+      <div v-if="isButtonInCart(1)" class="to-cart" :class="{ added: incart }" @click="chooseToCart(title)">
         <svg
           width="100"
           height="100"
@@ -32,6 +34,30 @@
           <path class="horisontal" d="M75 50L25 50C8.00006 50 13 34.5 28.9999 49.5C36.1992 56.2493 41 65 42.9999 75" pathLength="100" />
         </svg>
       </div>
+      <div v-if="isButtonInCart(2)" class="to-cart--goodpage_wrapper">
+        <div class="to-cart--goodpage_counter">
+          <div class="to-cart--goodpage_text">
+            Количество
+          </div>
+          <div class="to-cart--goodpage">
+            <div class="minus" @click="minusCounter">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7,11H17v2H7Z" /></svg>
+            </div>
+            <div class="number">
+              {{ counterForGoodpage }}
+            </div>
+            <div class="plus" @click="plusCounter">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13,11V7H11v4H7v2h4v4h2V13h4V11Z" /></svg>
+            </div>
+          </div>
+        </div>
+        <div class="to-cart--goodpage_add" @click="chooseAddToCart">
+          <svg class="cart-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.4401 39.6C22.405 24.9937 35.3187 14 50.8 14C66.2813 14 79.195 24.9937 82.1599 39.6M19.4401 39.6H6L17.2 86H82.8L94 39.6H82.1599M19.4401 39.6H82.1599" stroke-linejoin="round" />
+          </svg>
+          Добавить в корзину
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,16 +69,14 @@ export default {
   props: ['img', 'title', 'description', 'price', 'incart', 'whereused'],
   data () {
     return {
-      buttonInCart: [
-        'main'
-      ]
+      buttonInCart: {
+        'main': 1,
+        'goodpage': 2
+      },
+      counterForGoodpage: 0
     }
   },
   computed: {
-    isButtonInCart () {
-      console.log(this.buttonInCart.indexOf(this.whereused) != -1)
-      return this.buttonInCart.indexOf(this.whereused) != -1
-    },
     classForElement () {
       return 'card--' + this.whereused
     }
@@ -73,8 +97,20 @@ export default {
       }
       return bPrice
     },
+    minusCounter () {
+      if (this.counterForGoodpage > 0) { this.counterForGoodpage -= 1 }
+    },
+    plusCounter () {
+      this.counterForGoodpage += 1
+    },
+    isButtonInCart (value) {
+      return this.buttonInCart[this.whereused] === value
+    },
     chooseToCart (value) {
       store.commit('chooseToCart', value)
+    },
+    chooseAddToCart () {
+      store.commit('chooseAddToCart', { name: this.title, amount: this.counterForGoodpage })
     }
   }
 
@@ -113,9 +149,11 @@ export default {
 img {
   width: 203px;
   .card--goodpage & {
+    margin-right: 2vh;
     flex-grow: 1;
     @media screen and (max-width: 768px) {
       width: 100%;
+      margin: none;
     }
   }
 }
@@ -140,10 +178,19 @@ img {
 }
 .info {
   .card--goodpage & {
-    padding: 5vw;
-    padding-right: 0;
+    // padding: 5vw;
+    // padding-right: 0;
+    flex-grow: 0.2;
     @media screen and (max-width: 768px) {
-    padding: 5vw 1vw;
+    // padding: 5vw 1vw;
+    }
+  }
+}
+.info-header {
+  .card--goodpage & {
+    margin: 1vh;
+    @media screen and (max-width: 768px) {
+      margin: 2vh;
     }
   }
 }
@@ -177,6 +224,15 @@ path {
   stroke: white;
   transition: stroke-dasharray 300ms cubic-bezier(0.41, 0.03, 0.53, 1), stroke-dashoffset 300ms cubic-bezier(0.41, 0.03, 0.53, 1);
   stroke-dashoffset: 0;
+  .card--goodpage & {
+    fill: @dark;
+    stroke-width: 0;
+  }
+  .cart-svg & {
+      stroke-width: 5;
+      fill: none;
+      stroke: white;
+    }
 }
 svg {
   height: inherit;
@@ -213,5 +269,54 @@ svg {
   &.added {
     background-color: white;
   }
+}
+.to-cart--goodpage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 144px;
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+.number {
+  height: 24px;
+  width: 48px;
+}
+
+.minus {
+  padding: 12px;
+
+}
+.plus {
+  padding: 12px;
+
+}
+svg {
+  height: 24px;
+}
+.to-cart--goodpage_counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  margin-bottom: 2vh;
+}
+.to-cart--goodpage_wrapper {
+  margin: 1vh;
+  @media screen and (max-width: 768px) {
+    margin: 2vh;
+  }
+}
+.to-cart--goodpage_add {
+  background-color: @ikeablue;
+  height: 60px;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.cart-svg {
+  width: 24px;
+  margin-right: 5px;
 }
 </style>
