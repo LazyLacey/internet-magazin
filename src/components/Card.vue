@@ -23,13 +23,6 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect
-            x="0.5"
-            y="0.5"
-            width="99"
-            height="99"
-            fill="none"
-          />
           <path class="vertical" d="M50 75V25C50 7 87.5 14 75 30C58.0223 51.7315 48.5 59 43 75" pathLength="100" />
           <path class="horisontal" d="M75 50L25 50C8.00006 50 13 34.5 28.9999 49.5C36.1992 56.2493 41 65 42.9999 75" pathLength="100" />
         </svg>
@@ -64,6 +57,7 @@
 
 <script>
 import store from '../store'
+import { mapState } from 'vuex'
 export default {
   components: {},
   props: ['img', 'title', 'description', 'price', 'incart', 'whereused'],
@@ -73,7 +67,7 @@ export default {
         'main': 1,
         'goodpage': 2
       },
-      counterForGoodpage: 0
+      counterForGoodpage: 1
     }
   },
   computed: {
@@ -111,6 +105,7 @@ export default {
     },
     chooseAddToCart () {
       store.commit('chooseAddToCart', { name: this.title, amount: this.counterForGoodpage })
+      store.commit('openModal')
     }
   }
 

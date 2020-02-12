@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <!-- <TopRoutingPanel /> -->
     <!-- @click="chponk"> -->
     <div class="info">
       <div class="fixed-block">
@@ -8,14 +9,15 @@
       </div>
       <Cards whereused="main" />
     </div>
-    <zap-slideout />
+    <!-- <zap-slideout /> -->
   </div>
 </template>
 
 <script>
 import Cards from './Cards'
+// import TopRoutingPanel from './TopRoutingPanel'
 // import SomeShit from './SomeShit'
-import ZapSlideout from './ZapSlideout.vue'
+// import ZapSlideout from './ZapSlideout.vue'
 import Cart from './Cart'
 import FilterGoods from './Filter'
 import store from '../store'
@@ -26,16 +28,17 @@ export default {
   components: {
     Cards,
     // SomeShit,
-    ZapSlideout,
+    // ZapSlideout,
     Cart,
     FilterGoods
+    // TopRoutingPanel
   },
   props: {
   },
   data () {
     return {
-      first: ['critical', 'eq', 'creative', 'digital', 'communication', 'system', 'cooperation'],
-      second: ['art', 'business', 'craft', 'digits', 'logic', 'music', 'nature', 'people', 'science', 'sport', 'technology'],
+      // first: ['critical', 'eq', 'creative', 'digital', 'communication', 'system', 'cooperation'],
+      // second: ['art', 'business', 'craft', 'digits', 'logic', 'music', 'nature', 'people', 'science', 'sport', 'technology'],
       urls: [],
       normurls: []
     }

@@ -1,5 +1,6 @@
 <template>
   <div class="cart-page">
+    <TopRoutingPanel />
     <div class="body">
       <ul>
         <div v-for="good in cartGoods" :key="good.title" class="good-position">
@@ -43,10 +44,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import store from '../store'
+import TopRoutingPanel from './TopRoutingPanel'
 
 export default {
   name: 'CartPage',
   components: {
+    TopRoutingPanel
   },
   props: {
   },
@@ -125,7 +128,7 @@ img {
 }
 .body {
   margin: 10px;
-  margin-top: 35px;
+  margin-top: 70px;
   position: absolute;
   top: 0;
   bottom: 0;

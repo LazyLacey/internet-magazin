@@ -10,7 +10,10 @@ const store = new Vuex.Store({
     // visibleGoods: [],
     moreGoods: moreGoods,
     filterParam: 50,
-    goodPage: {}
+    goodPage: {},
+    goodPageState: {
+      modal: false
+    }
   },
   getters: {
     visibleGoods: state => {
@@ -78,6 +81,12 @@ const store = new Vuex.Store({
           }
         })
       }
+    },
+    openModal (state) {
+      state.goodPageState.modal = true
+    },
+    closeModal (state) {
+      state.goodPageState.modal = false
     },
     // filterFunction (state, arg) {
     //   state.filterParam = arg
